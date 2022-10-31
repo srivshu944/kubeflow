@@ -1,0 +1,84 @@
+apiVersion: kfdef.apps.kubeflow.org/v1
+kind: KfDef
+metadata:
+  name: kubeflow-test
+  namespace: kubeflow-test
+spec:
+  applications:
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/openshift/openshift-scc/overlays/istio
+    name: openshift-scc
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/istio-1-1-1-Openshift
+    name: istio
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/cert-manager-1.5
+    name: cert-manager
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/kfp-tekton/base
+    name: kfp-tekton
+#Uncomment if you need KFP on Argo
+#Make sure to comment kfp-tekton
+#  - kustomizeConfig:
+#      repoRef:
+#        name: manifests
+#        path: openshift/openshiftstack/application/pipeline-agnostic
+#    name: pipeline
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/knative/overlays/istio
+    name: knative
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/jupyter-web-app/base
+    name: jupyter-web-app
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/notebook-controller/base
+    name: notebook-controller
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/volumes-web-app/base
+    name: volumes-web-app
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/training-operator/base
+    name: training-operator
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/katib/base
+    name: katib
+# To deploy kserve uncomment following line. Also note to remove/comment out kfserving application
+#    - kustomizeConfig:
+#        repoRef:
+#          name: manifests
+#          path: openshift/openshiftstack/application/kserve/overlays/servicemesh
+#      name: kserve
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack/application/kfserving/base
+    name: kfserving
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: openshift/openshiftstack
+    name: kubeflow-apps
+  repos:
+  - name: manifests
+    uri: https://github.com/srivshu944/kubeflow/raw/main/kubeflowtest%20(2).tar.gzhttps://github.com/srivshu944/kubeflow/raw/main/kubeflowtest%20(2).tar.gz
+  version: v1.5.0
